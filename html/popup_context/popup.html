@@ -1,0 +1,616 @@
+<html style="
+    margin: 0;
+    padding: 0;
+    width: 600px;
+    height: 600px;
+    ">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/css/animations.css">
+        <link rel="stylesheet" type="text/css" href="/css/status_header.css">
+        <link rel="stylesheet" type="text/css" href="/css/popup_context/popup.css">
+        <title class="app_name_brand"></title>
+    </head>
+    <body style="
+        margin: 0;
+        padding: 0;
+        width: 600px;
+        height: 600px;
+        ">
+        <div id="confirmation_modal" class="fade-in">
+            <div>
+                <div id="modal_text">
+                    <div>
+                        <text>This is a test modal</text>
+                    </div>
+                </div>
+
+                <div id="modal_actions">
+                    <div>
+                        <div id="confirm">
+                            <div>
+                                <button>Confirm</button>
+                            </div>
+                        </div>
+
+                        <div id="cancel">
+                            <div>
+                                <button>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <splash-screen class="fade-in" id="welcome-screen" style="display: flex;width: 100%; height: 600px; background-color: black;z-index: 3;align-items: center;">
+            <div style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                position: absolute;
+                z-index: 3;
+                width: 100%;
+                /* height: 100%; */
+                ">
+                <logo class="fade-in app_logo_icon" style="
+                    display: flex;
+                    width: 104px;
+                    height: 104px;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    color: rgb(246, 98, 1);
+                    background-color: transparent;
+                    background-image: url();">   
+                </logo>
+                <extension-name style="
+                    display: flex;
+                    color: grey;
+                    font-family: helvetica, arial, roboto;
+                    font-weight: 600;
+                    font-size: 26px;
+                    letter-spacing: -1px;
+                    margin: 16px;
+                    " class="app_name_brand"></extension-name>
+                <actions style="display: flex;">
+                    <vertical-slide-list id="welcome_screen_actions" style="
+                        display: flex;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: space-evenly;
+                            align-self: center;
+                            background-color: #380a2100;
+                            width: 178px;
+                            ">
+
+                        </div>
+                    </vertical-slide-list>
+                </actions>
+            </div>
+        </splash-screen>
+        <app-menu class="fade-in" style="
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 600px;
+            height: 600px;
+            ">
+            <settings-popup class="fade-in" style="
+                display: none;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 3;
+                align-items: center;
+                justify-content: center;
+                top: 248px;
+            ">
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 93%;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: #ffffff00;
+                    overflow: hidden;
+                    ">
+                    <quit listener_target="true" listener_id="close_settings_popup" style="
+                        display: none;
+                        height: 18px;
+                        width: 18;
+                        background-image: url('data:image/png;base64,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');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 60% 60%;
+                        z-index: 9999;
+                        background-color: white;
+                        border-radius: 24px;
+                        position: relative;
+                        top: 13px;
+                        right: 13px;
+                        align-self: flex-end;
+                        cursor: pointer;
+                        " class=""></quit>
+                    <header style="
+                        display: none;
+                        width: 100%;
+                        margin-bottom: 9px;
+                        ">
+                        <div style="
+                            display: flex;
+                            width: 100%;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            ">
+                            <e-title style="
+                                    color: #62646a;
+                                    display: flex;
+                                    font-family: roboto bold;
+                                    font-size: 17px
+                                "> SETTINGS </e-title>
+                        </div>
+                    </header>
+                    <content style="
+                        display: flex;
+                        width: 100%;
+                        height: 100%;
+                        flex-direction: column;
+                        overflow-y : scroll;
+                        padding: 6px;
+                        ">
+                    </content>
+                </div>
+            </settings-popup>
+
+            <a-header style="
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: 10%;
+                box-shadow: 0px 0px 7px -7px black;
+                background-color: #ffffff;
+                z-index: 2;
+                box-shadow: 0px 0px 10px -7px black;
+                ">
+                <a-branding style="
+                    display: flex;
+                    margin-left: 24px;
+                    ">
+                    <div style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+                        ">
+                        <a-logo class="app_logo_icon" style="display: none; width: 45px; height: 45px; background-position: center center; background-repeat: no-repeat; background-size: 65% 65%; background-color: rgba(255, 0, 0, 0); margin: 1px 1px 1px 12px; background-image: url(&quot;chrome-extension://jiceobgdapbeaennnbobioocmodgehpe/assets/logo/logo.svg&quot;);"></a-logo>
+                        <a-logotype style="
+                            font-size: 28px;
+                            font-family: roboto bold;
+                            color: #404145;
+                            margin: 0px 0px 0px 1px;
+                            " class="app_name_brand">JumboGPT</a-logotype>
+                    </div>
+                </a-branding>
+                <div style="
+                    display: flex;
+                    height: 100%;
+                    ">
+                    <a-stats-info style="
+                        display: flex;
+                        height: 100%;
+                        align-items: center;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            height: 100%;
+                            ">
+                            <a-stats-info style="
+                                display: flex;
+                                height: 100%;
+                                align-items: center;
+                                ">
+                            </a-stats-info>
+                        </div>
+                    </a-stats-info>
+                </div>
+                <div style="
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-right: 24px;
+                    ">
+                    <div id="extension_state_toggle" style="
+                        display: none;
+                        background: linear-gradient(
+                        90deg
+                        , rgba(49,255,132,1) 0%, rgba(29,247,253,1) 35%, #b44dff 80%);
+                        padding: 1px;
+                        border-radius: 23px;
+                        ">
+                        <label class="switch" style="
+                            "> <input id="option_value" type="checkbox" listener_id="extension_state"><span class="slider round"></span> </label>
+                    </div>
+                    <a-states-info style="
+                        display: flex;
+                        height: 100%;
+                        background-color: #0000ff00;
+                        margin: 0px 32px 0px 0px;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            height: 100%;
+                            ">
+                        </div>
+                    </a-states-info>
+                    <a-options-icon id="open_settings_popup" style="
+                        display: flex;
+                        height: 100%;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            ">
+                            <button style="
+                                background-color: white;
+                                display: flex;
+                                width: 55px;
+                                height: 55px;
+                                cursor: pointer;
+                                background-image: url('/assets/logo/logo.svg');
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: 100% 100%;
+                                border: none;
+                                "></button>
+                        </div>
+                    </a-options-icon>
+                </div>
+            </a-header>
+
+            <a-content style="
+                    display: flex;
+                    width: 100%;
+                    height: 90%;
+                    background-color: #ffffff;
+                ">
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: space-between;
+                    overflow: hidden;
+                    ">
+                        <div id="main_actions" style="
+                                display: flex;
+                                width: 100%;
+                                height: 5%;
+                                align-items: center;
+                                justify-content: center;
+                                box-shadow: 0px 0px 10px -7px black;
+                            ">
+                            <div style="
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: space-between;
+                                width: 96%;
+                                ">
+                            </div>
+                        </div>
+
+                        <div id="app" style="
+                            display: flex;
+                            width: 100%;
+                            height: 95%;
+                            ">
+                            <div style="
+                                display: flex;
+                                width: 100%;
+                                height: 100%;
+                                ">
+                                <div id="input_tab" style="
+                                    display: flex;
+                                    width: 100%;
+                                    height: 100%;
+                                    ">
+                                    <div style="
+                                        display: flex;
+                                        width: 100%;
+                                        height: 100%;
+                                        align-items: center;
+                                        justify-content: space-evenly;
+                                        flex-direction: column;
+                                        ">
+                                        <textarea listener_id="prompt_input_field" placeholder="Add your prompts and click 'GO'. One prompt per line. 
+
+Tip: If you utilize 'Import Prompts via CSV', you can use multiple lines in a single prompt. One prompt per row." data="{}" style="
+                                            display: flex;
+                                            width: 90%;
+                                            height: 80%;
+                                            padding: 12px;
+                                            border-radius: 7px;
+                                            border: 2px solid #b6b6b6;
+                                            font-size: 14px;
+                                            color: #4e4e4e;
+                                            resize: none;
+                                            outline-style: none;
+                                            "></textarea>
+                                        <div id="actions" style="
+                                            display: flex;
+                                            width: 100%;
+                                            height: 10%;
+                                            align-items: center;
+                                            justify-content: center;
+                                            ">
+                                            <div style="
+                                                display: flex;
+                                                width: 540px;
+                                                height: 100%;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                ">
+                                                <div listener_id="import_prompts">
+                                                    <button style="
+                                                        font-family: roboto bold;
+                                                        line-height: 24px;
+                                                        min-height: 48px;
+                                                        min-width: 50px;
+                                                        padding: 12px 16px;
+                                                        font-size: 16px;
+                                                        font-weight: 600;
+                                                        border: 1px solid #222325;
+                                                        border-radius: 8px;
+                                                        background-color: white;
+                                                        color: #62646a;
+                                                        cursor: pointer;
+                                                        "> Import Prompts via CSV </button>
+                                                </div>
+
+                                                <div listener_id="execute_prompts_btn">
+                                                    <button style="
+                                                        font-family: roboto bold;
+                                                        line-height: 24px;
+                                                        min-height: 48px;
+                                                        min-width: 50px;
+                                                        padding: 12px 16px;
+                                                        font-size: 26px;
+                                                        font-weight: 600;
+                                                        border: 1px solid #e4e5e7;
+                                                        border-radius: 8px;
+                                                        background-color: #22B14C;
+                                                        color: white;
+                                                        cursor: pointer;
+                                                        width: 152.18;
+                                                        "> GO </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="output_tab" style="
+                                    display: none;
+                                    width: 100%;
+                                    height: 100%;
+                                    ">
+                                    <div style="
+                                        display: flex;
+                                        width: 100%;
+                                        height: 100%;
+                                        flex-direction: column;
+                                        ">
+                                        
+                                        <div id="prompts_results_actions_section_name" style="
+                                            display: none;
+                                            width: 100%;
+                                            ">
+                                            <div style="
+                                                display: flex;
+                                                width: 100%;
+                                                ">
+                                                <text style="
+                                                    font-family: roboto bold;
+                                                    color: #555555;
+                                                    font-size: 19px;
+                                                    padding: 17px;
+                                                    "> Actions you can take </text>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="prompts_results_actions" style="
+                                                display: flex;
+                                                width: 100%;
+                                                align-items: center;
+                                                justify-content: flex-start;
+                                            ">
+                                            <div style="
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    width: 51%;
+                                                    align-items: center;
+                                                    justify-content: space-between;
+                                                    padding: 17px;
+                                                    padding-left: 24px;
+                                                ">
+                                                
+                                                <button listener_id="copy_to_clipboard" data="{}" style="
+                                                    display: none;
+                                                    background-color: #0099a0;
+                                                    border: none;
+                                                    padding: 7px;
+                                                    border-radius: 5px;
+                                                    color: white;
+                                                    font-family: roboto bold;
+                                                    font-size: 13px;
+                                                    cursor: pointer;
+                                                    "> Copy to clipboard </button>
+                                                
+                                                <button listener_id="export_as_csv" data="{}" style="
+                                                    font-family: roboto bold;
+                                                    line-height: 24px;
+                                                    min-height: 48px;
+                                                    min-width: 50px;
+                                                    padding: 12px 16px;
+                                                    font-size: 16px;
+                                                    font-weight: 600;
+                                                    border: 1px solid rgb(228, 229, 231);
+                                                    border-radius: 8px;
+                                                    background-color: rgb(34, 177, 76);
+                                                    color: white;
+                                                    cursor: pointer;
+                                                    filter: none;
+                                                    "> Export as CSV </button>
+                                                <button listener_id="export_as_excel" data="{}" style="
+                                                    font-family: roboto bold;
+                                                    line-height: 24px;
+                                                    min-height: 48px;
+                                                    min-width: 50px;
+                                                    padding: 12px 16px;
+                                                    font-size: 16px;
+                                                    font-weight: 600;
+                                                    border: 1px solid rgb(228, 229, 231);
+                                                    border-radius: 8px;
+                                                    background-color: rgb(34, 177, 76);
+                                                    color: white;
+                                                    cursor: pointer;
+                                                    filter: none;
+                                                    "> Export as Excel </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="prompts_results_table_section_name" style="
+                                            display: none;
+                                            width: 100%;
+                                            ">
+                                            <div style="
+                                                display: flex;
+                                                width: 100%;
+                                                ">
+                                                <text style="
+                                                    font-family: roboto bold;
+                                                    color: #555555;
+                                                    font-size: 19px;
+                                                    padding: 17px;
+                                                    "> Result tables </text>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="prompts_results_table" style="max-height: 430px;">
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="help_tab" style="
+                                    display: none;
+                                    width: 100%;
+                                    height: 100%;
+                                    ">
+                                    <div style="
+                                        display: flex;
+                                        width: 100%;
+                                        height: 100%;
+                                        flex-direction: column;
+                                        ">
+                                        <div id="how_to_use" style="
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            box-shadow: 0px 5px 4px -7px black;
+                                            overflow: hidden;
+                                            ">
+                                            <div style="
+                                                display: flex;
+                                                width: 100%;
+                                                height: 100%;
+                                                flex-direction: column;
+                                                padding: 22px;
+                                                align-items: flex-start;
+                                                justify-content: space-evenly;
+                                                ">
+                                                <text id="how_to_use_name" style="
+                                                    font-family: roboto bold;
+                                                    font-size: 17px;
+                                                    color: #8c8c8c;
+                                                    "> How to use? </text>
+                                                <text id="how_to_use_value" style="
+                                                    font-family: roboto regular;
+                                                    font-size: 12px;
+                                                    color: #c2c2c2;
+                                                    "> Please go to https://chat.openai.com/chat and open this extension. </text>
+                                            </div>
+                                        </div>
+                                        <div id="bugs_or_feature_requests" style="
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            box-shadow: 0px 5px 4px -7px black;
+                                            ">
+                                            <div style="
+                                                display: flex;
+                                                width: 100%;
+                                                height: 100%;
+                                                flex-direction: column;
+                                                padding: 22px;
+                                                align-items: flex-start;
+                                                justify-content: space-evenly;
+                                                ">
+                                                <text id="bugs_or_feature_requests_section_name" style="
+                                                    font-family: roboto bold;
+                                                    font-size: 17px;
+                                                    color: #8c8c8c;
+                                                    "> HBugs or feature requests? </text>
+                                                <text id="bugs_or_feature_requests_section_value" style="
+                                                    font-family: roboto regular;
+                                                    font-size: 12px;
+                                                    color: #c2c2c2;
+                                                    "> PPlease leave a review with bugs or feature requests for this chrome extension. Thanks. </text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </a-content>
+            <a-footer style="
+                display: none;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                background-color: #000000;
+                height: 30px;
+                ">
+                <text style="
+                    font-size: 12px;
+                    font-family: helvvetica, arial, 'Roboto';
+                    font-weight: 200;
+                    color: white;
+                    "> 2021 </text>
+            </a-footer>
+        </app-menu>
+        <script type="text/javascript" src="/js/popup_context/main.js"></script>
+    </body>
+</html>

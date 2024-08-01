@@ -1,0 +1,38 @@
+fixed-status-header {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff2e2e;
+    width: 100%;
+    position: fixed;
+    z-index: 9999999999999 !important;
+}
+
+fixed-status-header text {
+    font-family: 'roboto bold';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 13px;
+    width: 76%;
+    padding: 5px;
+    filter: drop-shadow(2px 4px 6px #5e5e5e47);
+    /* color: #5e5e5e47; */
+}
+
+fixed-status-header button {
+    background-color: #ff2e2e;
+    line-height: inherit;
+    border: 1px solid white;
+    font-family: helvetica, arial, roboto;
+    color: white;
+    font-size: 9px;
+    border-radius: 4px;
+    margin-left: 11px;
+}
+
+fixed-status-header button:hover {
+    background-color: white;
+    color: red;
+}

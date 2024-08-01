@@ -1,0 +1,445 @@
+<html style="
+    margin: 0;
+    padding: 0;
+    ">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/css/animations.css">
+        <link rel="stylesheet" type="text/css" href="/css/status_header.css">
+        <link rel="stylesheet" type="text/css" href="/css/background_context/options.css">
+        <title class="app_name_brand"></title>
+    </head>
+    <body style="
+        margin: 0;
+        padding: 0;
+        ">
+        <splash-screen class="fade-in" id="welcome-screen" style="display: flex;width: 100%; height: 485px; background-color: #ffffff;z-index: 3;align-items: center;">
+            <div style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                position: absolute;
+                z-index: 3;
+                width: 100%;
+                /* height: 100%; */
+                ">
+                <logo class="fade-in app_logo_icon" style="
+                    display: flex;
+                    width: 104px;
+                    height: 104px;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    color: rgb(246, 98, 1);
+                    background-color: transparent;
+                    filter: drop-shadow(#80ceec 2px 4px 57px);
+                    image-rendering: pixelated;
+                    background-image: url();">   
+                </logo>
+                <extension-name style="
+                    display: flex;
+                    color: grey;
+                    font-family: helvetica, arial, roboto;
+                    font-weight: 600;
+                    font-size: 26px;
+                    letter-spacing: -1px;
+                    margin: 16px;
+                    " class="app_name_brand"></extension-name>
+                <actions>
+                    <vertical-slide-list id="welcome_screen_actions" style="
+                        display: flex;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: space-evenly;
+                            align-self: center;
+                            background-color: #380a2100;
+                            width: 178px;
+                            height: 135px;
+                            ">
+
+                        </div>
+                    </vertical-slide-list>
+                </actions>
+            </div>
+        </splash-screen>
+        <app-menu style="
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            ">
+            <settings-popup class="fade-in" style="display: none;width: 100%;height: 100%;position: absolute;z-index: 3;align-items: center;justify-content: center;backdrop-filter: blur(5px); z-index:999;">
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    width: 94%;
+                    height: 93%;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: #000000ed;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    box-shadow: 0px 0px 16px 0px black;
+                    border: 1px dashed #838383;
+                    ">
+                    <quit listener_id="close_settings_popup" style="
+                        display: flex;
+                        height: 31px;
+                        width: 31px;
+                        background-image: url('data:image/png;base64,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');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: 60% 60%;
+                        z-index: 9999;
+                        background-color: white;
+                        border-radius: 21px;
+                        position: relative;
+                        top: 13px;
+                        right: 13px;
+                        align-self: flex-end;
+                        cursor: pointer;
+                        " class=""></quit>
+                    <header style="
+                        display: flex;
+                        width: 100%;
+                        padding: 16px;
+                        ">
+                        <div style="
+                            display: flex;
+                            width: 100%;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            ">
+                            <e-title style="
+                                color: white;
+                                display: flex;
+                                font-family: helvetica, arial, roboto;
+                                font-weight: 800;
+                                font-size: 16px;
+                                "> SETTINGS </e-title>
+                        </div>
+                    </header>
+                    <content style="
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: 100%;
+                        ">
+                    </content>
+                </div>
+            </settings-popup>
+            <a-header style="
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    height: 10%;
+                    box-shadow: 0px 0px 40px -10px black;
+                    background-color: #2a2a2a;
+                    z-index: 2;
+                ">
+                <a-branding style="
+                    display: flex;
+                    ">
+                    <div style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+                        ">
+                        <a-logo class="app_logo_icon" style="display: flex; width: 45px; height: 45px; background-position: center center; background-repeat: no-repeat; background-size: 65% 65%; background-color: rgba(255, 0, 0, 0); margin: 1px 1px 1px 12px; background-image: url();
+                            image-rendering: pixelated;
+                            "></a-logo>
+                        <a-logotype style="
+                            font-size: 19px;
+                            font-family: helvetica, arial, 'Roboto';
+                            font-weight: 600;
+                            color: white;
+                            margin: 0px 0px 0px -4px;
+                            " class="app_name_brand"></a-logotype>
+                    </div>
+                </a-branding>
+                <div style="
+                    display: flex;
+                    height: 100%;
+                    ">
+                    <a-stats-info id="executions_counts" style="
+                        display: flex;
+                        height: 100%;
+                        align-items: center;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            height: 100%;
+                            ">
+                        </div>
+                    </a-stats-info>
+                </div>
+                <div style="
+                    display: flex;
+                    height: 100%;
+                    ">
+                    <a-stats-info style="
+                        display: flex;
+                        height: 100%;
+                        align-items: center;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            height: 100%;
+                            ">
+                            <a-stats-info style="
+                                display: flex;
+                                height: 100%;
+                                align-items: center;
+                                ">
+                            </a-stats-info>
+                        </div>
+                    </a-stats-info>
+                </div>
+                <div style="
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    ">
+                    <a-states-info style="
+                        display: flex;
+                        height: 100%;
+                        background-color: #0000ff00;
+                        margin: 0px 32px 0px 0px;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            height: 100%;
+                            ">
+                        </div>
+                    </a-states-info>
+                    <a-options-icon style="
+                        display: flex;
+                        height: 100%;
+                        margin-right: 8px;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            ">
+                            <button listener_id="open_settings_popup" style="
+                                display: flex;
+                                width: 30px;
+                                height: 30px;
+                                cursor: pointer;
+                                background-image: url('data:image/png;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAltP/AO2qp+KqxEuxAAAAAElFTkSuQmCC');
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: 80% 100%;
+                                image-rendering: pixelated;
+                                filter: invert(1);
+                                border: none;
+                                "></button>
+                        </div>
+                    </a-options-icon>
+                </div>
+            </a-header>
+            <a-content style="
+                display: flex;
+                width: 100%;
+                height: 90%;
+                background: radial-gradient(circle, rgb(0 0 0) 0%, rgb(5 5 5) 1%, rgb(0 0 0) 67%);
+                ">
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: space-between;
+                    overflow: hidden;
+                    ">
+                    <div id="main_actions" style="
+                        display: flex;
+                        width: 100%;
+                        height: 8%;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid#353535;
+                        padding: 14px 0px 14px 0px;
+                        ">
+                        <div style="
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            width: 96%;
+                            ">
+                        </div>
+                    </div>
+                    <div style="
+                        display: flex;
+                        flex-direction: row;
+                        width: 100%;
+                        height: 100%;
+                        ">
+                        <div id="set_target_content" style="
+                            display: flex;
+                            flex-direction: column;
+                            width: 40%;
+                            justify-content: space-between;
+                            ">
+                            <div id="database_spreadsheet_url" style="
+                                display: flex;
+                                background-color: #2a2a2a;
+                                padding: 14px;
+                                height: 13.3%;
+                                ">
+                                <div style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 100%;
+                                    height: 100%;
+                                    ">
+                                    <text style="
+                                        color: white;
+                                        margin-bottom: 13px;
+                                        font-weight: 400;
+                                        font-size: 13px;
+                                        font-family: helvetica, arial, roboto;
+                                        "> Database spreadhsheet URL </text>
+                                    <div style="
+                                        display: flex;
+                                        width: 100%;
+                                        height: 100%;
+                                        ">
+                                        <input listener_id="database_spreadsheet_url_field" placeholder="Google Spreadsheet URL here" data="{}" style="margin: 0px;width: 100%;height: 100%;resize: none; padding: 8px;"></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="set_target_message_to_send" style="
+                                display: flex;
+                                background-color: #2a2a2a;
+                                padding: 14px;
+                                height: 33.3%;
+                                ">
+                                <div style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 100%;
+                                    height: 100%;
+                                    ">
+                                    <text style="
+                                        color: white;
+                                        margin-bottom: 13px;
+                                        font-weight: 400;
+                                        font-size: 13px;
+                                        font-family: helvetica, arial, roboto;
+                                        "> Set target message to send </text>
+                                    <div style="
+                                        display: flex;
+                                        width: 100%;
+                                        height: 100%;
+                                        ">
+                                        <textarea listener_id="target_message_to_send_input" placeholder="Write you message here, it will automatically be saved when typing" data="{}" style="margin: 0px;width: 100%;height: 100%;resize: none; padding: 8px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="set_file_to_send" style="display: flex;background-color: #2a2a2a;padding: 14px;height: 33.3%;">
+                                <div style="
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 100%;
+                                    ">
+                                    <text style="
+                                        color: white;
+                                        margin-bottom: 13px;
+                                        font-weight: 400;
+                                        font-size: 13px;
+                                        font-family: helvetica, arial, roboto;
+                                        "> Set file attachment (optional) </text>
+                                    <div style="
+                                        display: flex;
+                                        width: 100%;
+                                        height: 100%;
+                                        align-items: center;
+                                        justify-content: center;
+                                        ">
+                                        <label class="file" style="width: 80%;">
+                                        <input listener_id="target_file_attachment_input" type="file" id="file" data="{}" style="">
+                                        <span class="file-custom" style=""></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="
+                            display: flex;
+                            width: 60%;
+                            align-items: center;
+                            justify-content: center;
+                            ">
+                            <div id="tasks_logs" style="
+                                display: flex;
+                                width: 80%;
+                                height: 80%;
+                                flex-direction: column;
+                                padding: 14px;
+                                background-color:  #2a2a2a;
+                                ">
+                                <text style="
+                                    color: white;
+                                    margin-bottom: 13px;
+                                    font-weight: 400;
+                                    font-size: 13px;
+                                    font-family: helvetica, arial, roboto;
+                                    "> Current actions happening: </text>
+                                <textarea listener_id="TASKS_LOG" placeholder="Nothing is being done." data="{}" style="
+                                    display: flex;
+                                    width: 100%;
+                                    height: 100%;
+                                    background-color: #c3c3c3;
+                                    ">                                    
+                                                    </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a-content>
+            <a-footer style="
+                display: none;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                background-color: #201318;
+                height: 20px;
+                ">
+                <text style="
+                    font-size: 12px;
+                    font-family: helvvetica, arial, 'Roboto';
+                    font-weight: 200;
+                    color: white;
+                    "> 2021 </text>
+            </a-footer>
+        </app-menu>
+        <script type="text/javascript" src="/js/background_context/OPTIONS_PAGE/main.js"></script>
+    </body>
+</html>
